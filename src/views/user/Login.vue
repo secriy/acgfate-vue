@@ -1,10 +1,9 @@
 <template>
-  <div class="about">
+  <div class="login">
     <NavBar />
-    <h1>This is an about page</h1>
+    <h1>登录</h1>
   </div>
 </template>
-
 <script>
 // @ is an alias to /src
 import NavBar from "@/components/NavBar.vue";

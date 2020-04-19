@@ -10,12 +10,12 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="#"
-              >首页<span class="sr-only">(current)</span></a
+            <router-link class="nav-link" to="/"
+              >首页<span class="sr-only">(current)</span></router-link
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">图床</a>
+            <router-link class="nav-link" to="/about">图床</router-link>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">音乐</a>
@@ -35,13 +35,29 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
           搜索
         </button>
-        <button class="btn btn-outline-success offset-lg-4 mr-sm-2">
+        <button
+          class="btn btn-outline-success offset-lg-4 mr-sm-2"
+          @click.prevent="registerPage"
+        >
           注册
         </button>
-        <button class="btn btn-outline-secondary">
+        <button class="btn btn-outline-secondary" @click.prevent="loginPage">
           登录
         </button>
       </form>
     </div>
   </nav>
 </template>
+
+<script>
+export default {
+  methods: {
+    registerPage() {
+      this.$router.push("/register");
+    },
+    loginPage() {
+      this.$router.push("/login");
+    }
+  }
+};
+</script>
