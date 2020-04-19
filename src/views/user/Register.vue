@@ -50,7 +50,7 @@
 <script>
 // @ is an alias to /src
 import NavBar from "@/components/NavBar.vue";
-import * as API from "@/api/user/";
+import * as API from "@/api/v1/user/";
 
 export default {
   name: "Home",
