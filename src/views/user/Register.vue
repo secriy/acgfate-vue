@@ -9,7 +9,7 @@
           <input
             type="text"
             class="form-control"
-            v-model="form.user_name"
+            v-model="registerForm.user_name"
             id="user_nameForm"
           />
         </div>
@@ -18,7 +18,7 @@
           <input
             type="text"
             class="form-control"
-            v-model="form.nickname"
+            v-model="registerForm.nickname"
             id="nicknameForm"
           />
         </div>
@@ -27,7 +27,7 @@
           <input
             type="password"
             class="form-control"
-            v-model="form.password"
+            v-model="registerForm.password"
             id="passwordForm"
           />
         </div>
@@ -36,14 +36,14 @@
           <input
             type="password"
             class="form-control"
-            v-model="form.password_confirm"
+            v-model="registerForm.password_confirm"
             id="password_confirmForm"
           />
         </div>
-        <button type="submit" class="btn btn-primary" @click="onSubmit">
-          注册
-        </button>
       </form>
+      <button type="submit" class="btn btn-primary" @click="onSubmit">
+        注册
+      </button>
     </div>
   </div>
 </template>
@@ -59,7 +59,7 @@ export default {
   },
   data() {
     return {
-      form: {
+      registerForm: {
         user_name: "",
         nickname: "",
         password: "",
@@ -69,7 +69,9 @@ export default {
   },
   methods: {
     onSubmit() {
-      API.userRegister(this.form);
+      API.userRegister(this.registerForm).then(res => {
+        alert(res.data.uid);
+      });
     }
   }
 };

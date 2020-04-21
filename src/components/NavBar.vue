@@ -18,10 +18,10 @@
             <router-link class="nav-link" to="/about">图床</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">音乐</a>
+            <router-link class="nav-link" to="/about">音乐</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">关于</a>
+            <router-link class="nav-link" to="/about">关于</router-link>
           </li>
         </ul>
       </div>
