@@ -32,7 +32,7 @@
 <script>
 // @ is an alias to /src
 import NavBar from "@/components/NavBar.vue";
-import * as API from "@/api/v1/";
+// import * as API from "@/api/v1/";
 
 export default {
   name: "Home",
@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      API.userLogin(this.loginForm).then(res => {
+      this.API.userLogin(this.loginForm).then(res => {
         alert(`登录成功，UID：${res.data.uid}`);
       });
     }

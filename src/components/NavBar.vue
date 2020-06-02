@@ -4,9 +4,9 @@
     style="background-color: #ffb3cb57;"
   >
     <div class="container col-lg-8">
-      <a class="navbar-brand" href="#"
-        ><img src="../assets/logo.png" alt="" width="160"
-      /></a>
+      <router-link class="navbar-brand" to="/"
+        ><img src="../assets/logo.png" width="160"
+      /></router-link>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">

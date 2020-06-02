@@ -50,7 +50,7 @@
 <script>
 // @ is an alias to /src
 import NavBar from "@/components/NavBar.vue";
-import * as API from "@/api/v1/user/";
+import * as API from "@/api/v1/";
 
 export default {
   name: "Home",
@@ -70,7 +70,7 @@ export default {
   methods: {
     onSubmit() {
       API.userRegister(this.registerForm).then(res => {
-        alert(res.data.uid);
+        console.log(res.data.uid);
       });
     }
   }
