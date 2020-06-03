@@ -22,17 +22,22 @@ const routes = [
   {
     path: "/register",
     name: "Register",
-    component: () => import("../views/user/Register.vue")
+    component: () => import("../views/account/Register.vue")
   },
   {
     path: "/login",
     name: "Login",
-    component: () => import("../views/user/Login.vue")
+    component: () => import("../views/account/Login.vue")
+  },
+  {
+    path: "/upload",
+    name: "Upload",
+    component: () => import("../views/article/CreateArticle")
   }
 ];
 
 const router = new VueRouter({
-  mode: "history",
+  mode: "hash",
   base: process.env.BASE_URL,
   routes
 });

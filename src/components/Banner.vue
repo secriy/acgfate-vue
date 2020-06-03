@@ -65,7 +65,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .banner-container {
   height: 800px;
   position: relative;

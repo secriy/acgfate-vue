@@ -1,19 +1,28 @@
 <template>
   <div class="home">
     <NavBar />
+
     <div style="width:1080px; margin:0px auto">
       <Banner :banners="banners" />
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-sm-3" v-for="(aItem, i) in articles" :key="i">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">标题：{{ aItem.title }}</h5>
-              <p class="card-text">作者：{{ aItem.author.nickname }}</p>
-              <p class="card-text">简介：{{ aItem.summary }}</p>
-              <p class="card-text">内容：{{ aItem.content }}</p>
-            </div>
+        <div
+          class="card col-sm-3"
+          v-for="(aItem, i) in articles"
+          :key="i"
+          style="width:18rem"
+        >
+          <img
+            src="https://secriy.oss-cn-shanghai.aliyuncs.com/image/60d.png"
+            class="card-img-top"
+            alt=""
+          />
+          <div class="card-body">
+            <h5 class="card-title">标题：{{ aItem.title }}</h5>
+            <p class="card-text">作者：{{ aItem.author.nickname }}</p>
+            <p class="card-text">简介：{{ aItem.summary }}</p>
+            <p class="card-text">内容：{{ aItem.content }}</p>
           </div>
         </div>
       </div>
@@ -25,7 +34,7 @@
 // @ is an alias to /src
 import NavBar from "@/components/NavBar.vue";
 import Banner from "@/components/Banner.vue";
-import * as API from "@/api/v1/";
+import * as API from "@/api/v1/article.js";
 
 export default {
   name: "Home",
