@@ -1,4 +1,5 @@
 import axios from "axios";
+
 // 用户注册
 const userRegister = registerForm =>
   axios
@@ -17,8 +18,8 @@ const userLogin = loginForm =>
     });
 // 当前用户
 const userMe = loginForm =>
-  axios.post("/api/v1/user/me", loginForm).then(res => res.data);
+  axios.get("/api/v1/user/me", loginForm).then(res => res.data);
 // 用户登出
 const userLogout = loginForm =>
-  axios.post("/api/v1/user/logout", loginForm).then(res => res.data);
+  axios.delete("/api/v1/user/logout", loginForm).then(res => res.data);
 export { userRegister, userLogin, userMe, userLogout };

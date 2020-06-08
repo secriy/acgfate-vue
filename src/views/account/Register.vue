@@ -5,53 +5,78 @@
       <img src="@/assets/images/rl_top.png" class="img-fluid" alt="" />
     </div>
     <div class="title-line"><span class="tit">注册</span></div>
+    <br />
     <div class="container">
       <div class="row justify-content-center">
         <form class="col-4">
           <div class="form-group">
-            <br />
             <input
               type="text"
               class="form-control"
+              :class="{ 'is-invalid': usernameValid() }"
               v-model="registerForm.user_name"
+              @input="resetValid(), usernameValid"
               placeholder="用户名"
+              autocomplete
               id="user_nameForm"
             />
+            <div class="invalid-feedback">
+              {{ formError.user_name }}
+            </div>
           </div>
+          <br />
           <div class="form-group">
-            <br />
+            <div />
             <input
               type="text"
               class="form-control"
+              :class="{ 'is-invalid': nicknameValid() }"
               v-model="registerForm.nickname"
+              @input="nicknameValid"
               placeholder="昵称"
+              autocomplete
               id="nicknameForm"
             />
+            <div class="invalid-feedback">
+              {{ formError.nickname }}
+            </div>
           </div>
+          <br />
           <div class="form-group">
-            <br />
             <input
               type="password"
               class="form-control"
+              :class="{ 'is-invalid': passwordValid() }"
               v-model="registerForm.password"
+              @input="passwordValid"
               placeholder="密码"
+              autocomplete
               id="passwordForm"
             />
+            <div class="invalid-feedback">
+              {{ formError.password }}
+            </div>
           </div>
+          <br />
           <div class="form-group">
-            <br />
             <input
               type="password"
               class="form-control"
+              :class="{ 'is-invalid': confirmValid() }"
               v-model="registerForm.password_confirm"
+              @input="confirmValid"
               placeholder="确认密码"
+              autocomplete
               id="password_confirmForm"
             />
+            <div class="invalid-feedback">
+              {{ formError.password_confirm }}
+            </div>
             <br />
             <div
               class="alert alert-success"
               role="alert"
-              v-if="isRegister === 2"
+              v-if="isRegister === 0"
             >
               注册成功！UID：{{ uid }}
             </div>
@@ -60,7 +85,7 @@
               role="alert"
               v-else-if="isRegister === 1"
             >
-              注册失败，请检查输入！
+              注册失败，{{ err }}。
             </div>
           </div>
           <div class="row justify-content-around">
@@ -96,20 +121,94 @@ export default {
         password: "",
         password_confirm: ""
       },
-      isRegister: 0,
-      uid: ""
+      formError: {
+        user_name: "",
+        nickname: "",
+        password: "",
+        password_confirm: ""
+      },
+      isRegister: 2,
+      isExist: false,
+      uid: "",
+      err: ""
     };
   },
   methods: {
-    onSubmit() {
+    usernameValid() {
+      if (this.registerForm.user_name.length == 0) {
+        this.formError.user_name = "用户名不能为空";
+        return true;
+      } else if (
+        this.registerForm.user_name.length < 3 ||
+        this.registerForm.user_name.length > 10
+      ) {
+        this.formError.user_name = "用户名长度必须介于3和10之间";
+        return true;
+      } else if (this.isExist) {
+        this.formError.user_name = "用户名已被注册";
+        return true;
+      }
+      return false;
+    },
+    nicknameValid() {
+      if (this.registerForm.nickname.length == 0) {
+        this.formError.nickname = "昵称不能为空";
+        return true;
+      } else if (
+        this.registerForm.nickname.length < 2 ||
+        this.registerForm.nickname.length > 10
+      ) {
+        this.formError.nickname = "昵称长度必须介于2和10之间";
+        return true;
+      }
+      return false;
+    },
+    passwordValid() {
+      if (this.registerForm.password.length == 0) {
+        this.formError.password = "密码不能为空";
+        return true;
+      } else if (
+        this.registerForm.password.length < 8 ||
+        this.registerForm.password.length > 16
+      ) {
+        this.formError.password = "密码长度必须介于8和16之间";
+        return true;
+      }
+      return false;
+    },
+    confirmValid() {
+      if (this.registerForm.password_confirm.length == 0) {
+        this.formError.password_confirm = "确认密码不能为空";
+        return true;
+      } else if (
+        this.registerForm.password != this.registerForm.password_confirm
+      ) {
+        this.formError.password_confirm = "两次输入的密码不一致";
+        return true;
+      }
+      return false;
+    },
+    resetValid() {
+      this.isExist = false;
+    },
+    async onSubmit() {
       API.userRegister(this.registerForm).then(res => {
         if (res.code === 0) {
-          this.isRegister = 2;
+          this.isRegister = 0;
           this.uid = res.data.uid;
+          setTimeout(() => {
+            this.loginPage();
+          }, 2000);
+        } else if (res.code == 40001) {
+          this.isExist = true;
         } else {
           this.isRegister = 1;
+          this.err = res.msg;
         }
       });
+    },
+    loginPage() {
+      this.$router.push("/login");
     }
   }
 };
@@ -136,5 +235,8 @@ export default {
   padding: 0 20px;
   background: #fff;
   text-align: center;
+}
+.invalid-feedback {
+  float: left;
 }
 </style>

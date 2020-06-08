@@ -15,6 +15,7 @@
               class="form-control"
               v-model="loginForm.user_name"
               placeholder="用户名"
+              autocomplete
               id="user_nameForm"
             />
           </div>
@@ -25,6 +26,7 @@
               class="form-control"
               v-model="loginForm.password"
               placeholder="密码"
+              autocomplete
               id="passwordForm"
             />
             <br />
@@ -34,7 +36,7 @@
             <div
               class="alert alert-success"
               role="alert"
-              v-else-if="isLogin === 2"
+              v-else-if="isLogin === 0"
             >
               登录成功！UID：{{ uid }}
             </div>
@@ -78,7 +80,7 @@ export default {
         user_name: "",
         password: ""
       },
-      isLogin: 0,
+      isLogin: 2,
       uid: ""
     };
   },
@@ -86,11 +88,17 @@ export default {
     registerPage() {
       this.$router.push("/register");
     },
+    profilePage() {
+      this.$router.push("/profile");
+    },
     submitForm() {
       API.userLogin(this.loginForm).then(res => {
         if (res.code === 0) {
-          this.isLogin = 2;
+          this.isLogin = 0;
           this.uid = res.data.uid;
+          setTimeout(() => {
+            this.profilePage();
+          }, 1000);
         } else {
           this.isLogin = 1;
         }

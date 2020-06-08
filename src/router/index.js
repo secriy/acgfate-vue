@@ -33,6 +33,11 @@ const routes = [
     path: "/upload",
     name: "Upload",
     component: () => import("../views/article/CreateArticle")
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: () => import("../views/account/Profile")
   }
 ];
 

@@ -22,6 +22,9 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/about">关于</router-link>
         </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/profile">个人资料</router-link>
+        </li>
       </ul>
     </div>
     <div class="input-group col-md-2">
